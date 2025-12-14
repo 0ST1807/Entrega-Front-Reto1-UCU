@@ -11,19 +11,9 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Router } from '@angular/router';
-import { finalize } from 'rxjs';
 import { Person, PersonPayload } from '../../models/person';
 import { PersonService } from '../../services/person.service';
 import { UserService } from '../../services/user.service';
-
-type PersonFormShape = {
-  nombre: FormControl<string | null>;
-  apellido: FormControl<string | null>;
-  edad: FormControl<number | null>;
-  email: FormControl<string | null>;
-  telefono: FormControl<string | null>;
-  ciudad: FormControl<string | null>;
-};
 
 @Component({
   selector: 'app-home',
@@ -56,15 +46,15 @@ export class Home implements OnInit {
   ];
 
   protected readonly dataSource = new MatTableDataSource<Person>([]);
-  protected readonly form = new FormGroup<PersonFormShape>({
+  protected readonly form = new FormGroup({
     nombre: new FormControl<string | null>(null, {
-      validators: [Validators.required, Validators.maxLength(50)]
+      validators: [Validators.required, Validators.maxLength(30)]
     }),
     apellido: new FormControl<string | null>(null, {
-      validators: [Validators.required, Validators.maxLength(50)]
+      validators: [Validators.required, Validators.maxLength(30)]
     }),
     edad: new FormControl<number | null>(null, {
-      validators: [Validators.required, Validators.min(0), Validators.max(120)]
+      validators: [Validators.required, Validators.min(0), Validators.max(100)]
     }),
     email: new FormControl<string | null>(null, {
       validators: [Validators.required, Validators.email]
@@ -73,7 +63,7 @@ export class Home implements OnInit {
       validators: [Validators.required, Validators.maxLength(20)]
     }),
     ciudad: new FormControl<string | null>(null, {
-      validators: [Validators.required, Validators.maxLength(50)]
+      validators: [Validators.required, Validators.maxLength(20)]
     })
   });
 
@@ -84,16 +74,12 @@ export class Home implements OnInit {
   constructor(
     private readonly personService: PersonService,
     private readonly userService: UserService,
-    private readonly snackBar: MatSnackBar,
+    private readonly snackBar: MatSnackBar, //mensaje "flotante"
     private readonly router: Router
   ) {}
 
   ngOnInit(): void {
-    this.loadPeople();
-  }
-
-  protected get currentUser(): string | null {
-    return this.userService.getCurrentUser();
+    this.loadMembers();
   }
 
   protected submit(): void {
@@ -102,7 +88,7 @@ export class Home implements OnInit {
       return;
     }
 
-    const value = this.form.getRawValue();
+    const value = this.form.getRawValue(); //obtiene todos los valores del formulario
     if (value.edad === null) {
       return;
     }
@@ -122,22 +108,22 @@ export class Home implements OnInit {
       ? this.personService.update(this.editingPerson.id, payload)
       : this.personService.create(payload);
 
-    request$
-      .pipe(finalize(() => (this.isSaving = false)))
-      .subscribe({
-        next: () => {
-          this.snackBar.open(
-            this.editingPerson ? 'Persona actualizada' : 'Persona agregada',
-            'Cerrar',
-            { duration: 2500 }
-          );
-          this.resetForm();
-          this.loadPeople();
-        },
-        error: () => {
-          this.snackBar.open('Ocurrió un error al guardar', 'Cerrar', { duration: 3000 });
-        }
-      });
+    request$.subscribe({
+      next: () => {
+        this.isSaving = false;
+        this.snackBar.open(
+          this.editingPerson ? 'Member updated' : 'Member added',
+          'Close',
+          { duration: 2500 }
+        );
+        this.resetForm();
+        this.loadMembers();
+      },
+      error: () => {
+        this.isSaving = false;
+        this.snackBar.open('An error occurred while saving', 'Close', { duration: 3000 });
+      }
+    });
   }
 
   protected startEdit(person: Person): void {
@@ -159,17 +145,13 @@ export class Home implements OnInit {
   protected delete(person: Person): void {
     this.personService.delete(person.id).subscribe({
       next: () => {
-        this.snackBar.open('Persona eliminada', 'Cerrar', { duration: 2500 });
-        this.loadPeople();
+        this.snackBar.open('Member deleted', 'Close', { duration: 2500 });
+        this.loadMembers();
       },
       error: () => {
-        this.snackBar.open('No fue posible eliminar el registro', 'Cerrar', { duration: 3000 });
+        this.snackBar.open('Unable to delete the record', 'Close', { duration: 3000 });
       }
     });
-  }
-
-  protected trackById(_: number, item: Person): number {
-    return item.id;
   }
 
   protected logout(): void {
@@ -177,19 +159,18 @@ export class Home implements OnInit {
     this.router.navigate(['login']);
   }
 
-  private loadPeople(): void {
+  private loadMembers(): void {
     this.isLoading = true;
-    this.personService
-      .getAll()
-      .pipe(finalize(() => (this.isLoading = false)))
-      .subscribe({
-        next: (people) => {
-          this.dataSource.data = people;
-        },
-        error: () => {
-          this.snackBar.open('No fue posible cargar los datos', 'Cerrar', { duration: 3000 });
-        }
-      });
+    this.personService.getAll().subscribe({
+      next: (people) => {
+        this.isLoading = false;
+        this.dataSource.data = people;
+      },
+      error: () => {
+        this.isLoading = false;
+        this.snackBar.open('Unable to load data', 'Close', { duration: 3000 });
+      }
+    });
   }
 
   private resetForm(): void {
