@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
@@ -9,7 +9,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
@@ -40,13 +39,12 @@ type PersonFormShape = {
     MatInputModule,
     MatSnackBarModule,
     ReactiveFormsModule,
-    MatSortModule,
     MatProgressBarModule
   ],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
-export class Home implements OnInit, AfterViewInit {
+export class Home implements OnInit {
   protected readonly displayedColumns = [
     'nombre',
     'apellido',
@@ -83,8 +81,6 @@ export class Home implements OnInit, AfterViewInit {
   protected isSaving = false;
   protected editingPerson: Person | null = null;
 
-  @ViewChild(MatSort) private sort!: MatSort;
-
   constructor(
     private readonly personService: PersonService,
     private readonly userService: UserService,
@@ -94,10 +90,6 @@ export class Home implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.loadPeople();
-  }
-
-  ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
   }
 
   protected get currentUser(): string | null {

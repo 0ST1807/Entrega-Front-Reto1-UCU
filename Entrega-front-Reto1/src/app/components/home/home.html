@@ -1,85 +1,85 @@
 <div class="dashboard">
   <mat-toolbar color="primary">
-    <span>Gestión de Personas</span>
+    <span>Member Dashboard</span>
     <span class="spacer"></span>
     <button mat-button color="accent" type="button" (click)="logout()">
-      Cerrar sesión
+      Log out
     </button>
   </mat-toolbar>
 
   <div class="content">
     <mat-card class="form-card">
       <mat-card-header>
-        <mat-card-title>{{ editingPerson ? 'Editar persona' : 'Nueva persona' }}</mat-card-title>
+        <mat-card-title>{{ editingPerson ? 'Edit Person' : 'New Person' }}</mat-card-title>
         <mat-card-subtitle>
-          Complete los datos para {{ editingPerson ? 'actualizar' : 'crear' }} un registro
+          Complete the details to {{ editingPerson ? 'update' : 'create' }} a record
         </mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
         <form class="person-form" [formGroup]="form" (ngSubmit)="submit()">
           <div class="form-grid">
             <mat-form-field appearance="outline">
-              <mat-label>Nombre</mat-label>
-              <input matInput formControlName="nombre" placeholder="Ingrese el nombre">
+              <mat-label>Name</mat-label>
+              <input matInput formControlName="nombre" placeholder="Enter name">
               <mat-error *ngIf="form.get('nombre')?.hasError('required')">
-                El nombre es obligatorio
+                Name is required
               </mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-              <mat-label>Apellido</mat-label>
-              <input matInput formControlName="apellido" placeholder="Ingrese el apellido">
+              <mat-label>Last Name</mat-label>
+              <input matInput formControlName="apellido" placeholder="Enter last name">
               <mat-error *ngIf="form.get('apellido')?.hasError('required')">
-                El apellido es obligatorio
+                Last name is required
               </mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-              <mat-label>Edad</mat-label>
-              <input matInput type="number" formControlName="edad" min="0" max="120">
+              <mat-label>Age</mat-label>
+              <input matInput type="number" formControlName="edad" min="0" max="100">
               <mat-error *ngIf="form.get('edad')?.hasError('required')">
-                La edad es obligatoria
+                Age is required
               </mat-error>
               <mat-error *ngIf="form.get('edad')?.hasError('min') || form.get('edad')?.hasError('max')">
-                Ingrese una edad válida
+                Enter a valid age!
               </mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
               <mat-label>Email</mat-label>
-              <input matInput type="email" formControlName="email" placeholder="nombre@mail.com">
+              <input matInput type="email" formControlName="email" placeholder="name@mail.com">
               <mat-error *ngIf="form.get('email')?.hasError('required')">
-                El email es obligatorio
+                Email is required
               </mat-error>
               <mat-error *ngIf="form.get('email')?.hasError('email')">
-                Ingrese un email válido
+                Enter a valid email address
               </mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-              <mat-label>Teléfono</mat-label>
-              <input matInput formControlName="telefono" placeholder="Ingrese el teléfono">
+              <mat-label>Phone</mat-label>
+              <input matInput formControlName="telefono" placeholder="Enter phone number">
               <mat-error *ngIf="form.get('telefono')?.hasError('required')">
-                El teléfono es obligatorio
+                Phone is required
               </mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-              <mat-label>Ciudad</mat-label>
-              <input matInput formControlName="ciudad" placeholder="Ingrese la ciudad">
+              <mat-label>City</mat-label>
+              <input matInput formControlName="ciudad" placeholder="Enter city">
               <mat-error *ngIf="form.get('ciudad')?.hasError('required')">
-                La ciudad es obligatoria
+                City is required
               </mat-error>
             </mat-form-field>
           </div>
 
           <div class="form-actions">
             <button mat-stroked-button color="primary" type="button" (click)="cancelEdit()" *ngIf="editingPerson">
-              Cancelar
+              Cancel
             </button>
             <span class="spacer"></span>
             <button mat-raised-button color="accent" type="submit" [disabled]="form.invalid || isSaving">
-              {{ editingPerson ? 'Actualizar' : 'Crear' }}
+              {{ editingPerson ? 'Update' : 'Create' }}
             </button>
           </div>
         </form>
@@ -88,51 +88,51 @@
 
     <mat-card class="table-card">
       <mat-card-header>
-        <mat-card-title>Listado de personas</mat-card-title>
+        <mat-card-title>Member List</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+      <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>  <!-- queda mas pillo-->
 
         <div class="table-wrapper">
-          <table mat-table [dataSource]="dataSource" matSort matSortDisableClear>
+          <table mat-table [dataSource]="dataSource">
 
             <ng-container matColumnDef="nombre">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+              <th mat-header-cell *matHeaderCellDef>Name</th>
               <td mat-cell *matCellDef="let person">{{ person.nombre }}</td>
             </ng-container>
 
             <ng-container matColumnDef="apellido">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Apellido</th>
+              <th mat-header-cell *matHeaderCellDef>Last Name</th>
               <td mat-cell *matCellDef="let person">{{ person.apellido }}</td>
             </ng-container>
 
             <ng-container matColumnDef="edad">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Edad</th>
+              <th mat-header-cell *matHeaderCellDef>Age</th>
               <td mat-cell *matCellDef="let person">{{ person.edad }}</td>
             </ng-container>
 
             <ng-container matColumnDef="email">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+              <th mat-header-cell *matHeaderCellDef>Email</th>
               <td mat-cell *matCellDef="let person">{{ person.email }}</td>
             </ng-container>
 
             <ng-container matColumnDef="telefono">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Teléfono</th>
+              <th mat-header-cell *matHeaderCellDef>Phone</th>
               <td mat-cell *matCellDef="let person">{{ person.telefono }}</td>
             </ng-container>
 
             <ng-container matColumnDef="ciudad">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Ciudad</th>
+              <th mat-header-cell *matHeaderCellDef>City</th>
               <td mat-cell *matCellDef="let person">{{ person.ciudad }}</td>
             </ng-container>
 
             <ng-container matColumnDef="actions">
-              <th mat-header-cell *matHeaderCellDef class="actions-column">Acciones</th>
+              <th mat-header-cell *matHeaderCellDef class="actions-column">Actions</th>
               <td mat-cell *matCellDef="let person" class="actions-column">
-                <button mat-icon-button color="primary" type="button" (click)="startEdit(person)" aria-label="Editar">
+                <button mat-icon-button color="primary" type="button" (click)="startEdit(person)" aria-label="Edit">
                   <mat-icon>edit</mat-icon>
                 </button>
-                <button mat-icon-button color="warn" type="button" (click)="delete(person)" aria-label="Eliminar">
+                <button mat-icon-button color="warn" type="button" (click)="delete(person)" aria-label="Delete">
                   <mat-icon>delete</mat-icon>
                 </button>
               </td>
@@ -141,7 +141,7 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
             <tr mat-no-data-row *matNoDataRow>
-              <td class="no-data" colspan="7">No hay registros para mostrar</td>
+              <td class="no-data" colspan="7">No records to display</td>
             </tr>
           </table>
         </div>
