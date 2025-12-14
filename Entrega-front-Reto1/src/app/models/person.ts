@@ -8,4 +8,4 @@ export interface Person {
   ciudad: string;
 }
 
-export type PersonPayload = Omit<Person, 'id'>;
+export type PersonPayload = Omit<Person, 'id'>;  //no me importa el id al crear o actualizar una persona en mi formulario

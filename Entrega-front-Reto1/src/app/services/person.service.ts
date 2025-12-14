@@ -7,23 +7,25 @@ import { Person, PersonPayload } from '../models/person';
   providedIn: 'root'
 })
 export class PersonService {
-  private readonly resourceUrl = 'http://localhost:3000/personas';
+  private readonly API_URL = 'http://localhost:3000/personas';
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {
 
-  getAll(): Observable<Person[]> {
-    return this.http.get<Person[]>(this.resourceUrl);
+  }
+
+  getAll(): Observable<Person[]> { //Observable lo que hace es "observar" los cambios que hay en el backend
+    return this.http.get<Person[]>(this.API_URL);
   }
 
   create(payload: PersonPayload): Observable<Person> {
-    return this.http.post<Person>(this.resourceUrl, payload);
+    return this.http.post<Person>(this.API_URL, payload);
   }
 
   update(id: number, payload: PersonPayload): Observable<Person> {
-    return this.http.put<Person>(`${this.resourceUrl}/${id}`, payload);
+    return this.http.put<Person>(`${this.API_URL}/${id}`, payload);
   }
 
   delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.resourceUrl}/${id}`);
+    return this.http.delete<void>(`${this.API_URL}/${id}`);
   }
 }
