@@ -1,65 +1,46 @@
-# Proyecto de gestión de personas
+# Proyecto de "gestión de personas"
 
-Aplicación web construida con Angular y TypeScript que consume una API REST simulada con JSON Server. Permite realizar operaciones CRUD sobre una entidad `persona` y cuenta con autenticación simple basada en un token JWT mockeado.
+Aplicación web construida con Angular y TypeScript que consume una API REST simulada con JSON Server. Permite realizar operaciones CRUD sobre una entidad `persona` y cuenta con autenticación simple basada en un token JWT mockeado. Esta autenticación es necesaria para acceder a las funcionalidades principales de la aplicación, pero no tengo credenciales predefinidas por lo que se ingresa con cualquier usuario y contraseña.
 
 ## Características principales
 
-- Pantalla de login con formularios reactivos y persistencia del token en `localStorage`.
-- Protección de rutas mediante `AuthGuard` y agregado de cabecera `Authorization` con interceptor HTTP.
-- Listado ordenable de personas usando Angular Material (`MatTable`).
-- Formularios reactivos para crear y editar registros, con validaciones y feedback visual.
-- Eliminación directa de registros desde la tabla.
+- Pantalla de login desarrollada con formularios y validaciones vistas en clase.
+- "Protección" de rutas mediante `AuthGuard` y `Authorization` con interceptor HTTP.
+- Metodos CRUD en `PersonService` donde tambien se realiza la llamada al json server.
+- Eliminación y modificación de registros desde la tabla.
 
 ## Tecnologías
 
-- Angular 21 + Standalone Components
+- Angular + Standalone Components
 - TypeScript
 - Angular Material
-- JSON Server (API REST mock)
-- RxJS
+- Angular Services
+- JSON Server (API REST)
 
-## Requisitos previos
 
-- Node.js 18 o superior
-- npm 10 (instalado con Node.js)
+## Instrucciones para ejecutar el proyecto
 
-## Configuración
+Instalar dependencias (node_modules):
 
-La URL de la API mock (`http://localhost:3000/personas`) está declarada en `src/app/services/person.service.ts`. Ajusta ese valor si ejecutas el backend en otra dirección o puerto.
+npm i
 
-## Puesta en marcha
 
-Instalar dependencias:
+Levantar la API (JSON Server):
 
-```bash
-npm install
-```
+npx json-server db.json
 
-Levantar la API mock con JSON Server (puerto 3000 por defecto):
+En otra terminal, iniciar la aplicación Angular:
 
-```bash
-npm run start:api
-```
-
-En otra terminal, iniciar la aplicación Angular (puerto 4200 por defecto):
-
-```bash
 npm start
-```
 
-Acceder a `http://localhost:4200/` y autenticarse con cualquier par usuario/contraseña (el backend devuelve un token mockeado).
 
-## Scripts útiles
+Acceder en el navegador web a `http://localhost:4200/` y autenticarse con cualquier par usuario/contraseña (se devuelve un token "mockeado").
 
-- `npm run start:api`: inicia JSON Server leyendo `src/db.json`.
-- `npm start`: levanta el frontend en modo desarrollo.
-- `npm run build`: genera la compilación optimizada.
-- `npm test`: ejecuta las pruebas unitarias configuradas.
 
-## Estructura relevante
+## Estructura del proyecto
 
-- `src/app/components/login`: pantalla de autenticación.
+- `src/app/components/login`: pantalla de inicio de sesión.
 - `src/app/components/home`: tablero principal con tabla y formulario CRUD.
-- `src/app/services`: servicios para autenticación y consumo de la API.
-- `src/app/guards/auth.guard.ts`: protección de rutas.
-- `src/app/interceptors/auth.interceptor.ts`: inyección automática del token JWT.
+- `src/app/services`: servicios para autenticación y consumo de la "API".
+- `src/app/guards/auth.guard.ts`: protección de rutas de acuerdo con lo visto en clase.
+- `src/app/interceptors/auth.interceptor.ts`: inyección del token JWT.
