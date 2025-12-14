@@ -3,13 +3,9 @@
     <div class="login-icon">
       <mat-icon>sports_soccer</mat-icon>
     </div>
-    <h1>Club Nacional de Football</h1>
-    <p class="subtitle">System for Member Management</p>
-    <div class="color-bar" aria-hidden="true">
-      <span class="bar blue"></span>
-      <span class="bar white"></span>
-      <span class="bar red"></span>
-    </div>
+    <h1>Proyecto de Desarrollo Frontend</h1>
+    <p class="subtitle">Santiago Trinidad</p>
+    
   </div>
 
   <form *ngIf="form" [formGroup]="form" (ngSubmit)="submit()">
@@ -35,6 +31,4 @@
       <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Sign in</button>
     </mat-card-actions>
   </form>
-
-  <p class="footer-claim">El Decano del fútbol uruguayo</p>
 </mat-card>
