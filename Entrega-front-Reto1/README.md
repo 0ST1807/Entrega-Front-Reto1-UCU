@@ -1,59 +1,65 @@
-# Entrega-front-Reto1
+# Proyecto de gestión de personas
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.3.
+Aplicación web construida con Angular y TypeScript que consume una API REST simulada con JSON Server. Permite realizar operaciones CRUD sobre una entidad `persona` y cuenta con autenticación simple basada en un token JWT mockeado.
 
-## Development server
+## Características principales
 
-To start a local development server, run:
+- Pantalla de login con formularios reactivos y persistencia del token en `localStorage`.
+- Protección de rutas mediante `AuthGuard` y agregado de cabecera `Authorization` con interceptor HTTP.
+- Listado ordenable de personas usando Angular Material (`MatTable`).
+- Formularios reactivos para crear y editar registros, con validaciones y feedback visual.
+- Eliminación directa de registros desde la tabla.
 
-```bash
-ng serve
-```
+## Tecnologías
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Angular 21 + Standalone Components
+- TypeScript
+- Angular Material
+- JSON Server (API REST mock)
+- RxJS
 
-## Code scaffolding
+## Requisitos previos
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- Node.js 18 o superior
+- npm 10 (instalado con Node.js)
 
-```bash
-ng generate component component-name
-```
+## Configuración
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+La URL de la API mock (`http://localhost:3000/personas`) está declarada en `src/app/services/person.service.ts`. Ajusta ese valor si ejecutas el backend en otra dirección o puerto.
 
-```bash
-ng generate --help
-```
+## Puesta en marcha
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Instalar dependencias:
 
 ```bash
-ng test
+npm install
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+Levantar la API mock con JSON Server (puerto 3000 por defecto):
 
 ```bash
-ng e2e
+npm run start:api
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+En otra terminal, iniciar la aplicación Angular (puerto 4200 por defecto):
 
-## Additional Resources
+```bash
+npm start
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Acceder a `http://localhost:4200/` y autenticarse con cualquier par usuario/contraseña (el backend devuelve un token mockeado).
+
+## Scripts útiles
+
+- `npm run start:api`: inicia JSON Server leyendo `src/db.json`.
+- `npm start`: levanta el frontend en modo desarrollo.
+- `npm run build`: genera la compilación optimizada.
+- `npm test`: ejecuta las pruebas unitarias configuradas.
+
+## Estructura relevante
+
+- `src/app/components/login`: pantalla de autenticación.
+- `src/app/components/home`: tablero principal con tabla y formulario CRUD.
+- `src/app/services`: servicios para autenticación y consumo de la API.
+- `src/app/guards/auth.guard.ts`: protección de rutas.
+- `src/app/interceptors/auth.interceptor.ts`: inyección automática del token JWT.

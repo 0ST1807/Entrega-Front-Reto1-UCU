@@ -1,0 +1,49 @@
+{
+  "personas": [
+    {
+      "id": 1,
+      "nombre": "Juan",
+      "apellido": "Pérez",
+      "edad": 28,
+      "email": "juan.perez@mail.com",
+      "telefono": "+59891234567",
+      "ciudad": "Montevideo"
+    },
+    {
+      "id": 2,
+      "nombre": "María",
+      "apellido": "González",
+      "edad": 34,
+      "email": "maria.gonzalez@mail.com",
+      "telefono": "+59898765432",
+      "ciudad": "Canelones"
+    },
+    {
+      "id": 3,
+      "nombre": "Lucas",
+      "apellido": "Rodríguez",
+      "edad": 22,
+      "email": "lucas.rodriguez@mail.com",
+      "telefono": "+59893456789",
+      "ciudad": "Maldonado"
+    },
+    {
+      "id": 4,
+      "nombre": "Sofía",
+      "apellido": "Fernández",
+      "edad": 41,
+      "email": "sofia.fernandez@mail.com",
+      "telefono": "+59895678901",
+      "ciudad": "Salto"
+    },
+    {
+      "id": 5,
+      "nombre": "Diego",
+      "apellido": "Martínez",
+      "edad": 30,
+      "email": "diego.martinez@mail.com",
+      "telefono": "+59892345678",
+      "ciudad": "Paysandú"
+    }
+  ]
+}

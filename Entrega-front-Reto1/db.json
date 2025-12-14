@@ -1,0 +1,58 @@
+{
+  "personas": [
+    {
+      "nombre": "María",
+      "apellido": "González",
+      "edad": 34,
+      "email": "maria.gonzalez@mail.com",
+      "telefono": "+59898765432",
+      "ciudad": "Tacuarembó",
+      "id": "2"
+    },
+    {
+      "id": "3",
+      "nombre": "Lucas",
+      "apellido": "Rodríguez",
+      "edad": 22,
+      "email": "lucas.rodriguez@mail.com",
+      "telefono": "+59893456789",
+      "ciudad": "Maldonado"
+    },
+    {
+      "id": "4",
+      "nombre": "Sofía",
+      "apellido": "Fernández",
+      "edad": 41,
+      "email": "sofia.fernandez@mail.com",
+      "telefono": "+59895678901",
+      "ciudad": "Salto"
+    },
+    {
+      "id": "5",
+      "nombre": "Diego",
+      "apellido": "Martínez",
+      "edad": 30,
+      "email": "diego.martinez@mail.com",
+      "telefono": "+59892345678",
+      "ciudad": "Paysandú"
+    },
+    {
+      "nombre": "Mateo",
+      "apellido": "Machado",
+      "edad": 30,
+      "email": "mateo@machado.com",
+      "telefono": "+598648491",
+      "ciudad": "Montevideo",
+      "id": "UVSMD5Z"
+    },
+    {
+      "nombre": "Santiago",
+      "apellido": "T",
+      "edad": 22,
+      "email": "test@test.com",
+      "telefono": "251515",
+      "ciudad": "Montevideo",
+      "id": "De9C42B"
+    }
+  ]
+}

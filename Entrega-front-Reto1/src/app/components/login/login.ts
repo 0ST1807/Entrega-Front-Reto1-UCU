@@ -29,6 +29,7 @@ import { UserService } from '../../services/user.service';
 })
 export class Login implements OnInit {
   form!: FormGroup;
+  isSubmitting = false;
   private readonly router = inject(Router);
 
   constructor(private userService: UserService) {}
@@ -41,10 +42,21 @@ export class Login implements OnInit {
   }
 
   submit(): void {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    this.isSubmitting = true;
     const userData = this.form.value;
-    this.userService.login(userData.username, userData.password).subscribe((success) => {
-      if (success) {
-        this.router.navigate(['home']);
+    this.userService.login(userData.username, userData.password).subscribe({
+      next: (success) => {
+        if (success) {
+          this.router.navigate(['home']);
+        }
+      },
+      complete: () => {
+        this.isSubmitting = false;
       }
     });
   }

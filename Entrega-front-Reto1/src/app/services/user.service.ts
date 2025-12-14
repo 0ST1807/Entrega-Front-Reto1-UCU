@@ -1,7 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { Injectable, PLATFORM_ID, inject } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { delay, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,21 +10,21 @@ export class UserService {
   private readonly MOCK_JWT = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.mock.payload.signature';
   private readonly platformId = inject(PLATFORM_ID);
 
-  constructor(private http: HttpClient) {}
+  constructor() {}
 
   private get storage(): Storage | null {
     return isPlatformBrowser(this.platformId) ? window.localStorage : null;
   }
 
   login(username: string, password: string): Observable<boolean> {
-    
+    // Mocked async login flow so UI can react to pending state
     const storage = this.storage;
     if (storage) {
       storage.setItem('token', this.MOCK_JWT);
       storage.setItem('user', username);
     }
 
-    return of(true);
+    return of(true).pipe(delay(500));
   }
 
   logout(): void {
@@ -46,5 +45,10 @@ export class UserService {
   getToken(): string | null {
     const storage = this.storage;
     return storage ? storage.getItem('token') : null;
+  }
+
+  getCurrentUser(): string | null {
+    const storage = this.storage;
+    return storage ? storage.getItem('user') : null;
   }
 }

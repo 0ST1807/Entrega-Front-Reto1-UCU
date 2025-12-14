@@ -10,6 +10,17 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     return next(req);
   }
 
+  if (/^https?:\/\//i.test(req.url)) {
+    try {
+      const destination = new URL(req.url);
+      if (typeof window !== 'undefined' && destination.origin !== window.location.origin) {
+        return next(req);
+      }
+    } catch {
+      return next(req);
+    }
+  }
+
   const authorized = req.clone({
     setHeaders: {
       Authorization: `Bearer ${token}`

@@ -1,4 +1,83 @@
-mat-card {
-  margin: 2rem auto;
-  max-width: 400px;
+:host {
+  display: block;
+  min-height: 100vh;
+  background: #eef1f6;
+}
+
+.dashboard {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+mat-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.content {
+  flex: 1;
+  padding: 2rem 1.5rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 12000px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.form-card,
+.table-card {
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+}
+
+.person-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.form-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .form-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  padding-top: 0.5rem;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 0.5rem;
+}
+
+table {
+  width: 100%;
+}
+
+.actions-column {
+  text-align: right;
+}
+
+.actions-column button {
+  margin-left: 0.25rem;
+}
+
+.no-data {
+  text-align: center;
+  padding: 1.5rem 0;
+  color: rgba(0, 0, 0, 0.56);
 }
